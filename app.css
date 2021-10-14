@@ -1,0 +1,32 @@
+/* some colors you may find useful:
+  #115ff4
+  #060ce9
+  #28a200
+  #8d2ab5
+  #74119c
+*/
+body {
+  background-color: #115ff4;
+  font-size: 9pt;
+}
+
+h1 {
+  color: #e7dada;
+  text-align: center;
+}
+
+table {
+  background-color: #fff;
+  border-collapse: collapse;
+}
+
+table thead th {
+  border: 2px solid #115ff4;
+  width: 12em;
+}
+
+table tbody td {
+  border: 2px solid #115ff4;
+  text-align: center;
+  height: 9em;
+}

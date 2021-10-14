@@ -1,55 +1,18 @@
-// categories is the main data structure for the app; it looks like this:
-
-//  [
-//    { title: "Math",
-//      clues: [
-//        {question: "2+2", answer: 4, showing: null},
-//        {question: "1+1", answer: 2, showing: null}
-//        ...
-//      ],
-//    },
-//    { title: "Literature",
-//      clues: [
-//        {question: "Hamlet Author", answer: "Shakespeare", showing: null},
-//        {question: "Bell Jar Author", answer: "Plath", showing: null},
-//        ...
-//      ],
-//    },
-//    ...
-//  ]
-
 let categories = [];
 const NUM_QUESTIONS_PER_CAT = 5;
 
-/** Get NUM_CATEGORIES random category from API.
- *
- * Returns array of category ids
- */
-
+// get category ids from API
 async function getCategoryIds() {
   const res = await axios.get("http://jservice.io/api/categories?count=100");
-  // console.log(res);
 
   let catIds = res.data.map((cat) => cat.id);
 
   //_.sampleSize() method is used to give an array of num random elements from the given array, in this case 6 random categories
-  // console.log(catIds);
 
   return _.sampleSize(catIds, 6);
 }
 
-/** Return object with data about a category:
- *
- *  Returns { title: "Math", clues: clue-array }
- *
- * Where clue-array is:
- *   [
- *      {question: "Hamlet Author", answer: "Shakespeare", showing: null},
- *      {question: "Bell Jar Author", answer: "Plath", showing: null},
- *      ...
- *   ]
- */
-
+// get categories using IDs from API
 async function getCategory(catId) {
   const res = await axios.get(`http://jservice.io/api/category?id=${catId}`);
   let cat = res.data;
@@ -62,14 +25,7 @@ async function getCategory(catId) {
   return { title: cat.title, clue };
 }
 
-/** Fill the HTML table#jeopardy with the categories & cells for questions.
- *
- * - The <thead> should be filled w/a <tr>, and a <td> for each category
- * - The <tbody> should be filled w/NUM_QUESTIONS_PER_CAT <tr>s,
- *   each with a question for each category in a <td>
- *   (initally, just show a "?" where the question/answer would go.)
- */
-
+// fills the HTML with data from APIs
 async function fillTable() {
   $("#board thead").empty().html("<tr></tr>");
 
@@ -96,6 +52,7 @@ async function fillTable() {
         clueArr[i].question
       )}" data-answer="${encodeURIComponent(clueArr[i].answer)}">?</td>`;
     }
+    // encodeURI allows for characters, such as "" to be in the html
     newTableColumnHtml += `</tr>`;
   }
 
@@ -123,7 +80,8 @@ function handleClick(evt) {
   }
 
   if ($target.hasClass("showing--question")) {
-    // here we need to display the answer
+    // this displays the answer
+    // need decodeURIComponent along with encodeURIComponent
     $target
       .removeClass("showing--question")
       .addClass("showing--answer")
@@ -137,27 +95,9 @@ function handleClick(evt) {
     .text(decodeURIComponent($target.data("question")));
 }
 
-/** Wipe the current Jeopardy board, show the loading spinner,
- * and update the button used to fetch data.
- */
-
-function showLoadingView() {}
-
-/** Remove the loading spinner and update the button used to fetch data. */
-
-function hideLoadingView() {}
-
-/** Start game:
- *
- * - get random category Ids
- * - get data for each category
- * - create HTML table
- * */
-
+// starts the game
 async function setupAndStart() {
   categories = [];
-
-  showLoadingView();
 
   let categoryIds = await getCategoryIds();
   for (let i = 0; i < categoryIds.length; i++) {
@@ -171,9 +111,3 @@ async function setupAndStart() {
 $(document).on("click", "#startNewGame", (e) => {
   setupAndStart();
 });
-
-// TODO
-
-/** On page load, add event handler for clicking clues */
-
-// TODO

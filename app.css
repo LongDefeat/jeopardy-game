@@ -1,32 +1,80 @@
-/* some colors you may find useful:
-  #115ff4
-  #060ce9
-  #28a200
-  #8d2ab5
-  #74119c
-*/
 body {
   background-color: #115ff4;
-  font-size: 9pt;
+  font-family: "Copse", sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 20px;
+  color: #e7dada;
 }
 
 h1 {
-  color: #e7dada;
   text-align: center;
+  color: #fff;
+  font-size: 26px;
+  margin-bottom: 22px;
+  animation: spin 4s linear 1;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-family: "Copse", sans-serif;
+  font-size: 16px;
+  background-color: #060ce9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 table {
   background-color: #fff;
   border-collapse: collapse;
+  margin: 0 auto;
 }
 
 table thead th {
   border: 2px solid #115ff4;
-  width: 12em;
+  color: rgba(51, 99, 162, 0.904);
+  text-shadow: 2px 2px 4px rgba(154, 154, 154, 0.5);
+  padding: 10px;
+  text-align: center;
 }
 
 table tbody td {
   border: 2px solid #115ff4;
+  padding: 10px;
   text-align: center;
-  height: 9em;
+  width: 200px;
+  height: 100px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  color: #115ff4;
+  box-sizing: border-box;
+}
+
+table tbody td.showing--question {
+  background-color: #115ff4;
+  color: #fff;
+}
+
+table tbody td.showing--answer {
+  background-color: #8d2ab5;
+  color: #fff;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
